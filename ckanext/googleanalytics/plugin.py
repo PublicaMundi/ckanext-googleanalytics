@@ -95,28 +95,31 @@ class GoogleAnalyticsPlugin(p.SingletonPlugin):
             'activity'
         ]
         register_list_str = '|'.join(register_list)
+
+        # Conflicting with publicamundi API so commenting out
+
         # /api ver 3 or none
-        with SubMapper(map, controller='ckanext.googleanalytics.controller:GAApiController', path_prefix='/api{ver:/3|}',
-                    ver='/3') as m:
-            m.connect('/action/{logic_function}', action='action',
-                      conditions=GET_POST)
+        #with SubMapper(map, controller='ckanext.googleanalytics.controller:GAApiController', path_prefix='/api{ver:/3|}',
+        #            ver='/3') as m:
+        #    m.connect('/action/{logic_function}', action='action',
+        #              conditions=GET_POST)
 
         # /api ver 1, 2, 3 or none
-        with SubMapper(map, controller='ckanext.googleanalytics.controller:GAApiController', path_prefix='/api{ver:/1|/2|/3|}',
-                       ver='/1') as m:
-            m.connect('/search/{register}', action='search')
+        #with SubMapper(map, controller='ckanext.googleanalytics.controller:GAApiController', path_prefix='/api{ver:/1|/2|/3|}',
+        #               ver='/1') as m:
+        #    m.connect('/search/{register}', action='search')
 
         # /api/rest ver 1, 2 or none
-        with SubMapper(map, controller='ckanext.googleanalytics.controller:GAApiController', path_prefix='/api{ver:/1|/2|}',
-                       ver='/1', requirements=dict(register=register_list_str)
-                       ) as m:
+        #with SubMapper(map, controller='ckanext.googleanalytics.controller:GAApiController', path_prefix='/api{ver:/1|/2|}',
+        #               ver='/1', requirements=dict(register=register_list_str)
+        #               ) as m:
 
-            m.connect('/rest/{register}', action='list', conditions=GET)
-            m.connect('/rest/{register}', action='create', conditions=POST)
-            m.connect('/rest/{register}/{id}', action='show', conditions=GET)
-            m.connect('/rest/{register}/{id}', action='update', conditions=PUT)
-            m.connect('/rest/{register}/{id}', action='update', conditions=POST)
-            m.connect('/rest/{register}/{id}', action='delete', conditions=DELETE)
+        #    m.connect('/rest/{register}', action='list', conditions=GET)
+        #    m.connect('/rest/{register}', action='create', conditions=POST)
+        #    m.connect('/rest/{register}/{id}', action='show', conditions=GET)
+        #    m.connect('/rest/{register}/{id}', action='update', conditions=PUT)
+        #    m.connect('/rest/{register}/{id}', action='update', conditions=POST)
+        #    m.connect('/rest/{register}/{id}', action='delete', conditions=DELETE)
 
         return map
 
@@ -126,12 +129,12 @@ class GoogleAnalyticsPlugin(p.SingletonPlugin):
         See IRoutes.
 
         '''
-        map.redirect("/analytics/package/top", "/analytics/dataset/top")
-        map.connect(
-            'analytics', '/analytics/dataset/top',
-            controller='ckanext.googleanalytics.controller:GAController',
-            action='view'
-        )
+        #map.redirect("/analytics/package/top", "/analytics/dataset/top")
+        #map.connect(
+        #    'analytics', '/analytics/dataset/top',
+        #    controller='ckanext.googleanalytics.controller:GAController',
+        #    action='view'
+        #)
         return map
 
     def filter(self, stream):
